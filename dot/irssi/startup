@@ -1,0 +1,10 @@
+/load perl
+/script load proxy_backlog
+/script load adv_windowlist
+/script load hilightwin
+/script load xchatnickcolor
+/script load nicklist
+/nicklist screen
+/window new split
+/window name hilight
+/window size 4
