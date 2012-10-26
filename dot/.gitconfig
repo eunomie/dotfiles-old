@@ -1,0 +1,69 @@
+[user]
+	name = Yves Brissaud
+	email = ybrissaud@tea-ebook.com
+
+[alias]
+  # so common alias
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  pr = pull --rebase
+
+  # log
+  # clean, oneline with graph
+  oneline = log --pretty=oneline --abbrev-commit --graph
+  lc = log ORIG_HEAD.. --stat --no-merges
+  new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+  #outgoing
+  lout = log --pretty=oneline --abbrev-commit --graph @{u}..
+  out = !git fetch && git lout
+  # incoming
+  lin = log --pretty=oneline --abbrev-commit --graph ..@{u}
+  in = !git fetch && git log --pretty=oneline --abbrev-commit --graph ..@{u}
+
+  # diff
+  dic = diff --cached
+  diffstat = diff --stat
+
+  undo = reset --soft HEAD^
+  # add modified files
+  addm = !git-ls-files -m -z | xargs -0 git-add && git status
+  # add unknown files
+  addu = !git-ls-files -o --exclude-standard -z | xargs -0 git-add && git status
+  # delete files marked as deleted
+  rmm  = !git ls-files -d -z | xargs -0 git-rm && git status
+
+  # server files
+  serve = daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
+
+  # merge management
+
+  # $ git edit-unmerged
+  # $ ... edit ...
+  # $ ... test ...
+  # $ git add-unmerged
+  # $ git commit  # or git rebase --continue or whatever
+
+  # sub is a shell alias to launch SublimeText2
+  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; sub `f`"
+  add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+
+  # legit
+  switch = !legit switch \"$@\"
+  branches = !legit branches
+  sprout = !legit sprout \"$@\"
+  unpublish = !legit unpublish \"$@\"
+  harvest = !legit harvest \"$@\"
+  sync = !legit sync \"$@\"
+  publish = !legit publish \"$@\"
+  graft = !legit graft \"$@\"
+
+  # add github pull requests
+  pullify = config --add remote.origin.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*'
+
+[color]
+	ui = true
+[core]
+	excludesfile = ~/.gitignore
