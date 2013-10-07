@@ -6,6 +6,7 @@
 ;(unless (package-installed-p 'clojure-mode)
 ;  (package-refresh-contents)
 ;  (package-install 'clojure-mode))
+;(package-install 'nrepl)
 
 (add-to-list 'load-path "~/.emacs.d/clojure")
 
@@ -31,6 +32,11 @@
   ;; If there is more than one, they won't work right.
  )
 
+(add-hook 'nrepl-interaction-mode-hook
+          'nrepl-turn-on-eldoc-mode)
+(setq nrepl-hide-special-buffers t)
+(add-hook 'nrepl-repl-mode-hook 'paredit-mode)
+
 (require 'paredit)
 (autoload 'enable-paredit-mode "paredit"
   "Turn on pseudo-structural editing of Lisp code."
@@ -47,3 +53,7 @@
 
 (require 'gentooish)
 (color-theme-gentooish)
+
+; https://github.com/jlr/rainbow-delimiters
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
